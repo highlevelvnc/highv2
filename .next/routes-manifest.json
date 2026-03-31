@@ -1,0 +1,196 @@
+{
+  "version": 3,
+  "pages404": true,
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [],
+    "fallback": []
+  },
+  "dynamicRoutes": [
+    {
+      "page": "/insights/[slug]",
+      "regex": "^/insights/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/insights/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/work/[slug]",
+      "regex": "^/work/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/work/(?<nxtPslug>[^/]+?)(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/about",
+      "regex": "^/about(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/about(?:/)?$"
+    },
+    {
+      "page": "/About",
+      "regex": "^/About(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/About(?:/)?$"
+    },
+    {
+      "page": "/Blog",
+      "regex": "^/Blog(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/Blog(?:/)?$"
+    },
+    {
+      "page": "/BlogPost",
+      "regex": "^/BlogPost(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/BlogPost(?:/)?$"
+    },
+    {
+      "page": "/contact",
+      "regex": "^/contact(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/contact(?:/)?$"
+    },
+    {
+      "page": "/Contact",
+      "regex": "^/Contact(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/Contact(?:/)?$"
+    },
+    {
+      "page": "/Home",
+      "regex": "^/Home(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/Home(?:/)?$"
+    },
+    {
+      "page": "/insights",
+      "regex": "^/insights(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/insights(?:/)?$"
+    },
+    {
+      "page": "/NicheLanding",
+      "regex": "^/NicheLanding(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/NicheLanding(?:/)?$"
+    },
+    {
+      "page": "/Plans",
+      "regex": "^/Plans(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/Plans(?:/)?$"
+    },
+    {
+      "page": "/Results",
+      "regex": "^/Results(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/Results(?:/)?$"
+    },
+    {
+      "page": "/robots.txt",
+      "regex": "^/robots\\.txt(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/robots\\.txt(?:/)?$"
+    },
+    {
+      "page": "/services",
+      "regex": "^/services(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services(?:/)?$"
+    },
+    {
+      "page": "/services/brand-presence",
+      "regex": "^/services/brand\\-presence(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/brand\\-presence(?:/)?$"
+    },
+    {
+      "page": "/services/digital-platforms",
+      "regex": "^/services/digital\\-platforms(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/digital\\-platforms(?:/)?$"
+    },
+    {
+      "page": "/services/growth-systems",
+      "regex": "^/services/growth\\-systems(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/growth\\-systems(?:/)?$"
+    },
+    {
+      "page": "/services/performance",
+      "regex": "^/services/performance(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/performance(?:/)?$"
+    },
+    {
+      "page": "/Services",
+      "regex": "^/Services(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/Services(?:/)?$"
+    },
+    {
+      "page": "/sitemap.xml",
+      "regex": "^/sitemap\\.xml(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/sitemap\\.xml(?:/)?$"
+    },
+    {
+      "page": "/Testimonials",
+      "regex": "^/Testimonials(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/Testimonials(?:/)?$"
+    },
+    {
+      "page": "/work",
+      "regex": "^/work(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/work(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "rsc",
+    "varyHeader": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "prefetchHeader": "next-router-prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSuffix": ".prefetch.rsc",
+    "prefetchSegmentHeader": "next-router-segment-prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments"
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "/_error": "pages/_error.js",
+  "/_app": "pages/_app.js",
+  "/About": "pages/About.html",
+  "/Blog": "pages/Blog.html",
+  "/BlogPost": "pages/BlogPost.html",
+  "/Home": "pages/Home.html",
+  "/NicheLanding": "pages/NicheLanding.html",
+  "/Contact": "pages/Contact.html",
+  "/Plans": "pages/Plans.html",
+  "/Services": "pages/Services.html",
+  "/Testimonials": "pages/Testimonials.html",
+  "/Results": "pages/Results.html",
+  "/_document": "pages/_document.js",
+  "/404": "pages/404.html"
+}
