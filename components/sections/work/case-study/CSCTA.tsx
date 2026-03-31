@@ -18,7 +18,7 @@ export default function CSCTA() {
               className="absolute inset-x-0 top-0 h-px"
               style={{
                 background:
-                  'linear-gradient(90deg, transparent, #6C3AFF 30%, #3B82F6 70%, transparent)',
+                  'linear-gradient(90deg, transparent, rgba(108,58,255,0.6) 30%, rgba(59,130,246,0.6) 70%, transparent)',
               }}
               aria-hidden
             />

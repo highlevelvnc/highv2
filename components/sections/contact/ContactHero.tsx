@@ -4,27 +4,26 @@ import { motion } from 'framer-motion'
 import { heroLabel, heroSubheadline } from '@/lib/motion'
 import SectionLabel from '@/components/shared/SectionLabel'
 import Container from '@/components/shared/Container'
+import InternalHeroBackground from '@/components/layout/InternalHeroBackground'
 
 export default function ContactHero() {
   return (
     <section
       className="relative overflow-hidden bg-bg-primary"
-      style={{ paddingTop: 'calc(var(--section-padding-y, 5rem) + 72px)', paddingBottom: 'var(--section-padding-y, 5rem)' }}
+      style={{
+        paddingTop: 'calc(var(--section-padding-y, 5rem) + 72px)',
+        paddingBottom: 'var(--section-padding-y, 5rem)',
+      }}
       aria-label="Contact hero"
     >
-      {/* Ambient glow */}
-      <div
-        className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2"
-        aria-hidden="true"
-        style={{
-          width: '600px',
-          height: '400px',
-          background: 'radial-gradient(ellipse at center, rgba(108,58,255,0.12) 0%, transparent 70%)',
-          filter: 'blur(40px)',
-        }}
+      <InternalHeroBackground
+        glowAt="50% -5%"
+        glowColor="rgba(108,58,255,0.22)"
+        secondaryAt="20% 55%"
+        secondaryColor="rgba(59,130,246,0.07)"
       />
 
-      <Container>
+      <Container className="relative z-10">
         <div className="max-w-2xl">
           <motion.div
             variants={heroLabel}

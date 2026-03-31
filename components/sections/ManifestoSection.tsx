@@ -41,6 +41,26 @@ export default function ManifestoSection() {
       style={{ paddingTop: 'var(--section-padding-y)', paddingBottom: 'var(--section-padding-y)' }}
       aria-label="Our manifesto"
     >
+      {/* ── Background depth ── */}
+      {/* Left anchor glow — gives the statement a sense of emanating from a source */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        aria-hidden="true"
+        style={{
+          background:
+            'radial-gradient(ellipse 60% 70% at -5% 40%, rgba(108,58,255,0.12) 0%, transparent 60%)',
+        }}
+      />
+      {/* Subtle top-center warmth to bridge from hero section */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        aria-hidden="true"
+        style={{
+          background:
+            'radial-gradient(ellipse 80% 40% at 55% -10%, rgba(108,58,255,0.07) 0%, transparent 60%)',
+        }}
+      />
+
       <Container>
         <div className="max-w-[900px]">
           {/* ── Decorative top line ── */}

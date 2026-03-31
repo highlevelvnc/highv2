@@ -1,17 +1,17 @@
 {
   "/_not-found/page": "/_not-found",
-  "/sitemap.xml/route": "/sitemap.xml",
   "/robots.txt/route": "/robots.txt",
-  "/about/page": "/about",
+  "/sitemap.xml/route": "/sitemap.xml",
   "/contact/page": "/contact",
+  "/insights/[slug]/page": "/insights/[slug]",
   "/insights/page": "/insights",
-  "/services/brand-presence/page": "/services/brand-presence",
   "/page": "/",
   "/services/digital-platforms/page": "/services/digital-platforms",
-  "/services/growth-systems/page": "/services/growth-systems",
   "/services/performance/page": "/services/performance",
+  "/services/brand-presence/page": "/services/brand-presence",
   "/services/page": "/services",
   "/work/page": "/work",
-  "/insights/[slug]/page": "/insights/[slug]",
-  "/work/[slug]/page": "/work/[slug]"
+  "/work/[slug]/page": "/work/[slug]",
+  "/about/page": "/about",
+  "/services/growth-systems/page": "/services/growth-systems"
 }

@@ -325,14 +325,32 @@ export default function ProcessSection() {
 
         {/* Bottom callout */}
         <ScrollReveal delay={0.1}>
-          <div className="mt-16 rounded-2xl border border-border-subtle bg-bg-elevated p-8 text-center">
-            <p className="mb-2 font-display text-[20px] font-semibold tracking-[-0.02em] text-text-primary sm:text-[24px]">
+          <div className="relative mt-16 overflow-hidden rounded-2xl border border-border-subtle bg-bg-elevated p-8 text-center">
+            {/* Gradient top border */}
+            <div
+              className="absolute inset-x-0 top-0 h-px"
+              aria-hidden="true"
+              style={{
+                background:
+                  'linear-gradient(90deg, transparent 0%, rgba(108,58,255,0.55) 30%, rgba(59,130,246,0.55) 70%, transparent 100%)',
+              }}
+            />
+            {/* Ambient glow */}
+            <div
+              className="pointer-events-none absolute inset-0"
+              aria-hidden="true"
+              style={{
+                background:
+                  'radial-gradient(ellipse 70% 80% at 50% -10%, rgba(108,58,255,0.1) 0%, transparent 65%)',
+              }}
+            />
+            <p className="relative mb-2 font-display text-[20px] font-semibold tracking-[-0.02em] text-text-primary sm:text-[24px]">
               Most clients see measurable results within{' '}
               <span className="bg-gradient-to-r from-[#6C3AFF] to-[#3B82F6] bg-clip-text text-transparent">
                 30 days.
               </span>
             </p>
-            <p className="font-body text-[15px] text-text-secondary">
+            <p className="relative font-body text-[15px] text-text-secondary">
               No six-month onboarding. No waiting for the strategy deck before
               anything moves.
             </p>

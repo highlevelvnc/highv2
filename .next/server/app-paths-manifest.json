@@ -1,17 +1,17 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/sitemap.xml/route": "app/sitemap.xml/route.js",
   "/robots.txt/route": "app/robots.txt/route.js",
-  "/about/page": "app/about/page.js",
+  "/sitemap.xml/route": "app/sitemap.xml/route.js",
   "/contact/page": "app/contact/page.js",
+  "/insights/[slug]/page": "app/insights/[slug]/page.js",
   "/insights/page": "app/insights/page.js",
-  "/services/brand-presence/page": "app/services/brand-presence/page.js",
   "/page": "app/page.js",
   "/services/digital-platforms/page": "app/services/digital-platforms/page.js",
-  "/services/growth-systems/page": "app/services/growth-systems/page.js",
   "/services/performance/page": "app/services/performance/page.js",
+  "/services/brand-presence/page": "app/services/brand-presence/page.js",
   "/services/page": "app/services/page.js",
   "/work/page": "app/work/page.js",
-  "/insights/[slug]/page": "app/insights/[slug]/page.js",
-  "/work/[slug]/page": "app/work/[slug]/page.js"
+  "/work/[slug]/page": "app/work/[slug]/page.js",
+  "/about/page": "app/about/page.js",
+  "/services/growth-systems/page": "app/services/growth-systems/page.js"
 }

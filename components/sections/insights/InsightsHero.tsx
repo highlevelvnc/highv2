@@ -6,6 +6,7 @@ import { ArrowUpRight } from 'lucide-react'
 import { heroLabel, heroSubheadline } from '@/lib/motion'
 import SectionLabel from '@/components/shared/SectionLabel'
 import Container from '@/components/shared/Container'
+import InternalHeroBackground from '@/components/layout/InternalHeroBackground'
 
 export default function InsightsHero() {
   return (
@@ -17,19 +18,15 @@ export default function InsightsHero() {
       }}
       aria-label="Insights hero"
     >
-      {/* Ambient glow — wide and diffuse, editorial feel */}
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0"
-        aria-hidden="true"
-        style={{
-          height: '70%',
-          background:
-            'radial-gradient(ellipse at 60% 0%, rgba(108,58,255,0.08) 0%, transparent 60%)',
-          filter: 'blur(60px)',
-        }}
+      {/* Editorial glow — softer than action pages, wider spread */}
+      <InternalHeroBackground
+        glowAt="60% -5%"
+        glowColor="rgba(108,58,255,0.22)"
+        secondaryAt="10% 60%"
+        secondaryColor="rgba(139,92,246,0.07)"
       />
 
-      <Container>
+      <Container className="relative z-10">
         <div className="max-w-2xl">
           <motion.div variants={heroLabel} initial="hidden" animate="visible">
             <SectionLabel withLine className="mb-6">

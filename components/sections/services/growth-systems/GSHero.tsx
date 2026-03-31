@@ -6,6 +6,7 @@ import { ArrowRight, ChevronRight } from 'lucide-react'
 import { heroLabel, heroSubheadline, heroCTA } from '@/lib/motion'
 import Container from '@/components/shared/Container'
 import { Button } from '@/components/ui/button'
+import InternalHeroBackground from '@/components/layout/InternalHeroBackground'
 
 export default function GSHero() {
   return (
@@ -17,32 +18,14 @@ export default function GSHero() {
       }}
       aria-label="Growth Systems hero"
     >
-      {/* Ambient gradient glow */}
-      <div
-        className="pointer-events-none absolute right-0 top-0"
-        aria-hidden="true"
-        style={{
-          width: '700px',
-          height: '600px',
-          background:
-            'radial-gradient(ellipse at right top, rgba(108,58,255,0.12) 0%, transparent 65%)',
-          filter: 'blur(60px)',
-        }}
-      />
-      {/* Faint left counter-glow */}
-      <div
-        className="pointer-events-none absolute bottom-0 left-0"
-        aria-hidden="true"
-        style={{
-          width: '400px',
-          height: '400px',
-          background:
-            'radial-gradient(ellipse at left bottom, rgba(59,130,246,0.06) 0%, transparent 65%)',
-          filter: 'blur(60px)',
-        }}
+      <InternalHeroBackground
+        glowAt="70% -5%"
+        glowColor="rgba(108,58,255,0.20)"
+        secondaryAt="15% 55%"
+        secondaryColor="rgba(59,130,246,0.07)"
       />
 
-      <Container>
+      <Container className="relative z-10">
         <div className="max-w-3xl">
           {/* Breadcrumb */}
           <motion.div
@@ -103,7 +86,7 @@ export default function GSHero() {
           {/* CTA */}
           <motion.div variants={heroCTA} initial="hidden" animate="visible">
             <Button variant="primary" size="lg" asChild>
-              <Link href="/contact" className="group">
+              <Link href="/contact" className="group" data-magnetic>
                 Book a Discovery Call
                 <ArrowRight
                   size={16}

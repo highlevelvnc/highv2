@@ -7,6 +7,7 @@ import { heroLabel, heroSubheadline, heroCTA } from '@/lib/motion'
 import SectionLabel from '@/components/shared/SectionLabel'
 import Container from '@/components/shared/Container'
 import { Button } from '@/components/ui/button'
+import InternalHeroBackground from '@/components/layout/InternalHeroBackground'
 
 export default function ServicesHero() {
   return (
@@ -18,20 +19,14 @@ export default function ServicesHero() {
       }}
       aria-label="Services hero"
     >
-      {/* Ambient glow */}
-      <div
-        className="pointer-events-none absolute right-0 top-0"
-        aria-hidden="true"
-        style={{
-          width: '600px',
-          height: '500px',
-          background:
-            'radial-gradient(ellipse at right top, rgba(108,58,255,0.1) 0%, transparent 65%)',
-          filter: 'blur(50px)',
-        }}
+      <InternalHeroBackground
+        glowAt="75% -5%"
+        glowColor="rgba(108,58,255,0.20)"
+        secondaryAt="15% 50%"
+        secondaryColor="rgba(59,130,246,0.07)"
       />
 
-      <Container>
+      <Container className="relative z-10">
         <div className="max-w-3xl">
           <motion.div variants={heroLabel} initial="hidden" animate="visible">
             <SectionLabel withLine className="mb-6">
@@ -74,7 +69,7 @@ export default function ServicesHero() {
 
           <motion.div variants={heroCTA} initial="hidden" animate="visible">
             <Button variant="primary" size="lg" asChild>
-              <Link href="/contact" className="group">
+              <Link href="/contact" className="group" data-magnetic>
                 Book a Discovery Call
                 <ArrowRight
                   size={16}

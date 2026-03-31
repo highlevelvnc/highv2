@@ -40,8 +40,8 @@ const pillars: Pillar[] = [
       'Paid acquisition infrastructure',
     ],
     accentClass: 'from-[#6C3AFF] to-[#3B82F6]',
-    glowColor: 'rgba(108,58,255,0.18)',
-    spotlightColor: 'rgba(108,58,255,0.22)',
+    glowColor: 'rgba(108,58,255,0.15)',
+    spotlightColor: 'rgba(108,58,255,0.16)',
   },
   {
     id: 'content',
@@ -55,8 +55,8 @@ const pillars: Pillar[] = [
       'Distribution amplification',
     ],
     accentClass: 'from-[#8B5CF6] to-[#EC4899]',
-    glowColor: 'rgba(139,92,246,0.18)',
-    spotlightColor: 'rgba(139,92,246,0.22)',
+    glowColor: 'rgba(139,92,246,0.15)',
+    spotlightColor: 'rgba(139,92,246,0.16)',
   },
   {
     id: 'brand',
@@ -70,8 +70,8 @@ const pillars: Pillar[] = [
       'Visual identity systems',
     ],
     accentClass: 'from-[#3B82F6] to-[#10B981]',
-    glowColor: 'rgba(59,130,246,0.18)',
-    spotlightColor: 'rgba(59,130,246,0.22)',
+    glowColor: 'rgba(59,130,246,0.15)',
+    spotlightColor: 'rgba(59,130,246,0.16)',
   },
   {
     id: 'growth',
@@ -85,8 +85,8 @@ const pillars: Pillar[] = [
       'Marketing automation',
     ],
     accentClass: 'from-[#10B981] to-[#6C3AFF]',
-    glowColor: 'rgba(16,185,129,0.18)',
-    spotlightColor: 'rgba(16,185,129,0.22)',
+    glowColor: 'rgba(16,185,129,0.15)',
+    spotlightColor: 'rgba(16,185,129,0.16)',
   },
 ]
 

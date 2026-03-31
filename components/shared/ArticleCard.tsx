@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { useRef, useCallback } from 'react'
 import { motion, type Variants } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -16,7 +17,12 @@ interface ArticleCardProps {
 /**
  * Reusable editorial article card.
  * Used on both the homepage InsightsSection and the /insights index page.
- * Links to /insights/[slug] for future detail page routing.
+ *
+ * Visual upgrades:
+ *  - Mouse-tracking spotlight (CSS custom props --sx / --sy, no re-renders)
+ *  - Gradient top accent line reveals on hover
+ *  - Gradient visual area has inner glow overlay for depth
+ *  - Article title transitions to text-primary on hover (preserved)
  */
 export default function ArticleCard({
   insight,
@@ -27,21 +33,74 @@ export default function ArticleCard({
     ? `linear-gradient(135deg, ${insight.gradientFrom} 0%, ${insight.gradientVia} 50%, ${insight.gradientTo} 100%)`
     : `linear-gradient(135deg, ${insight.gradientFrom} 0%, ${insight.gradientTo} 100%)`
 
+  const cardRef = useRef<HTMLElement>(null)
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const el = cardRef.current
+    if (!el) return
+    const rect = el.getBoundingClientRect()
+    const x = ((e.clientX - rect.left) / rect.width)  * 100
+    const y = ((e.clientY - rect.top)  / rect.height) * 100
+    el.style.setProperty('--sx', `${x}%`)
+    el.style.setProperty('--sy', `${y}%`)
+  }, [])
+
+  const handleMouseLeave = useCallback(() => {
+    cardRef.current?.style.removeProperty('--sx')
+    cardRef.current?.style.removeProperty('--sy')
+  }, [])
+
   return (
     <motion.article
+      ref={cardRef}
       variants={variants}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       className={cn(
-        'group flex flex-col overflow-hidden rounded-2xl border border-border-subtle bg-bg-elevated transition-all duration-300 hover:border-border-hover',
+        'group relative flex flex-col overflow-hidden rounded-2xl border border-border-subtle bg-bg-elevated transition-all duration-300 hover:border-border-hover',
         className,
       )}
     >
-      <Link href={`/insights/${insight.slug}`} className="flex flex-1 flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-inset">
+      {/* Mouse-tracking spotlight */}
+      <div
+        className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        aria-hidden="true"
+        style={{
+          background:
+            'radial-gradient(circle 200px at var(--sx, 50%) var(--sy, 50%), rgba(108,58,255,0.1) 0%, transparent 70%)',
+        }}
+      />
+
+      {/* Gradient top accent — appears on hover */}
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        aria-hidden="true"
+        style={{
+          background: `linear-gradient(90deg, transparent 0%, ${insight.gradientFrom}90 40%, ${insight.gradientTo}90 60%, transparent 100%)`,
+        }}
+      />
+
+      <Link
+        href={`/insights/${insight.slug}`}
+        className="flex flex-1 flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-inset"
+      >
         {/* Visual area */}
         <div className="relative aspect-[16/9] overflow-hidden">
           <div
             className="absolute inset-0 scale-100 transition-transform duration-700 ease-out group-hover:scale-105"
             style={{ background: gradientStyle }}
           />
+
+          {/* Inner glow for surface depth */}
+          <div
+            className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+            aria-hidden="true"
+            style={{
+              background:
+                'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,255,255,0.12) 0%, transparent 60%)',
+            }}
+          />
+
           {/* Noise texture */}
           <div
             className="absolute inset-0 opacity-[0.04]"
@@ -51,6 +110,7 @@ export default function ArticleCard({
               backgroundSize: '200px 200px',
             }}
           />
+
           {/* Category badge */}
           <div className="absolute left-4 top-4 rounded-full border border-white/10 bg-black/30 px-3 py-1.5 backdrop-blur-sm">
             <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-white/80">

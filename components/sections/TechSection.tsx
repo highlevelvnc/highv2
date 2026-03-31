@@ -96,8 +96,8 @@ function TechDiagram() {
           <motion.path
             key={`line-${node.id}`}
             d={`M${CENTER.x},${CENTER.y} L${node.x},${node.y}`}
-            stroke="rgba(108,58,255,0.2)"
-            strokeWidth={1}
+            stroke="rgba(108,58,255,0.32)"
+            strokeWidth={1.2}
             fill="none"
             initial={{ pathLength: 0, opacity: 0 }}
             animate={isInView ? { pathLength: 1, opacity: 1 } : { pathLength: 0, opacity: 0 }}
@@ -226,12 +226,21 @@ function TechDiagram() {
         ))}
       </svg>
 
-      {/* Ambient glow behind diagram */}
+      {/* Ambient glow behind diagram — two layered halos */}
       <div
-        className="pointer-events-none absolute inset-0 -z-10 rounded-full opacity-20"
+        className="pointer-events-none absolute inset-0 -z-10"
         style={{
           background:
-            'radial-gradient(ellipse 60% 60% at 50% 50%, rgba(108,58,255,0.2) 0%, transparent 70%)',
+            'radial-gradient(ellipse 70% 70% at 50% 50%, rgba(108,58,255,0.15) 0%, rgba(59,130,246,0.06) 55%, transparent 75%)',
+          filter: 'blur(10px)',
+        }}
+      />
+      <div
+        className="pointer-events-none absolute inset-[-15%] -z-10"
+        style={{
+          background:
+            'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(108,58,255,0.08) 0%, transparent 65%)',
+          filter: 'blur(28px)',
         }}
       />
     </div>
@@ -276,9 +285,18 @@ function TechBadgeGrid() {
 
 export default function TechSection() {
   return (
-    <Section bg="elevated" id="technology">
+    <Section bg="elevated" id="technology" className="relative">
+      {/* Section background depth layer */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        aria-hidden="true"
+        style={{
+          background:
+            'radial-gradient(ellipse 50% 80% at 90% 50%, rgba(108,58,255,0.07) 0%, transparent 65%), radial-gradient(ellipse 40% 50% at 10% 30%, rgba(59,130,246,0.05) 0%, transparent 55%)',
+        }}
+      />
       <Container>
-        <div className="grid gap-14 lg:grid-cols-2 lg:items-center lg:gap-24">
+        <div className="relative grid gap-14 lg:grid-cols-2 lg:items-center lg:gap-24">
           {/* Left: text content */}
           <motion.div
             variants={fadeInLeft}
@@ -352,3 +370,4 @@ export default function TechSection() {
     </Section>
   )
 }
+

@@ -8,6 +8,16 @@ import { CountUp } from '@/components/animations'
 import Container from '@/components/shared/Container'
 import type { CaseStudy } from '@/lib/data/work'
 
+/**
+ * CSHero — case study page hero.
+ *
+ * Visual treatment is unique to each study via the study's gradient colours:
+ *  - Right-side ambient glow uses `gradientFrom` at 22% opacity
+ *  - Left counter-glow using `gradientTo` at 8% — creates colour depth
+ *  - Dot grid (consistent with homepage hero language)
+ *  - The visual panel on the right uses the full gradient at high opacity,
+ *    with an inner glow overlay and noise texture for surface richness
+ */
 export default function CSHero({ study }: { study: CaseStudy }) {
   const gradientBg = study.gradientVia
     ? `linear-gradient(135deg, ${study.gradientFrom} 0%, ${study.gradientVia} 50%, ${study.gradientTo} 100%)`
@@ -22,18 +32,59 @@ export default function CSHero({ study }: { study: CaseStudy }) {
       }}
       aria-label={`${study.client} case study`}
     >
-      {/* Ambient glow */}
+      {/* ── Background layers ── */}
+
+      {/* Primary glow — right side, study accent colour */}
       <div
-        className="pointer-events-none absolute right-0 top-0 h-full w-2/3"
+        className="pointer-events-none absolute inset-0"
         aria-hidden="true"
         style={{
-          background: `radial-gradient(ellipse at 80% 30%, ${study.gradientFrom}1c 0%, transparent 60%)`,
-          filter: 'blur(80px)',
+          background: `radial-gradient(ellipse 70% 80% at 85% 0%, ${study.gradientFrom}28 0%, transparent 65%)`,
         }}
       />
 
-      <Container>
+      {/* Counter glow — left side, study secondary colour */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        aria-hidden="true"
+        style={{
+          background: `radial-gradient(ellipse 45% 55% at 5% 60%, ${study.gradientTo}12 0%, transparent 55%)`,
+        }}
+      />
+
+      {/* Edge vignette */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        aria-hidden="true"
+        style={{
+          background:
+            'radial-gradient(ellipse 100% 100% at 50% 50%, transparent 30%, rgba(5,5,8,0.55) 100%)',
+        }}
+      />
+
+      {/* Dot grid */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.025]"
+        aria-hidden="true"
+        style={{
+          backgroundImage:
+            'radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1px)',
+          backgroundSize: '44px 44px',
+        }}
+      />
+
+      {/* Bottom fade */}
+      <div
+        className="pointer-events-none absolute bottom-0 left-0 right-0 h-32"
+        aria-hidden="true"
+        style={{
+          background: 'linear-gradient(to top, var(--bg-primary) 0%, transparent 100%)',
+        }}
+      />
+
+      <Container className="relative z-10">
         <div className="grid gap-12 lg:grid-cols-[1fr_380px] lg:items-center lg:gap-16 xl:grid-cols-[1fr_440px]">
+
           {/* ── Left: content */}
           <div>
             {/* Breadcrumb */}
@@ -63,7 +114,14 @@ export default function CSHero({ study }: { study: CaseStudy }) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.35 }}
             >
-              <span className="inline-block rounded-full border border-accent-primary/30 bg-accent-primary/8 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.1em] text-accent-primary">
+              <span
+                className="inline-block rounded-full border px-3 py-1 font-mono text-[11px] uppercase tracking-[0.1em]"
+                style={{
+                  borderColor: `${study.gradientFrom}50`,
+                  backgroundColor: `${study.gradientFrom}12`,
+                  color: study.gradientFrom,
+                }}
+              >
                 {study.capability}
               </span>
             </motion.div>
@@ -124,24 +182,44 @@ export default function CSHero({ study }: { study: CaseStudy }) {
           <motion.div
             className="relative hidden overflow-hidden rounded-2xl lg:block"
             style={{ aspectRatio: '3/4' }}
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.94 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
             aria-hidden
           >
+            {/* Gradient fill */}
             <div
               className="absolute inset-0 scale-110"
-              style={{ background: gradientBg, opacity: 0.9 }}
+              style={{ background: gradientBg, opacity: 0.92 }}
             />
+
+            {/* Inner glow overlay — creates surface depth */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,255,255,0.15) 0%, transparent 60%)',
+              }}
+            />
+
             {/* Noise texture */}
             <div
-              className="absolute inset-0 opacity-[0.04]"
+              className="absolute inset-0 opacity-[0.05]"
               style={{
                 backgroundImage:
                   'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.75\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\'/%3E%3C/svg%3E")',
                 backgroundSize: '200px 200px',
               }}
             />
+
+            {/* Edge shadow for depth */}
+            <div
+              className="absolute inset-0"
+              style={{
+                boxShadow: 'inset 0 0 60px rgba(0,0,0,0.3)',
+              }}
+            />
+
             {/* Bottom meta badges */}
             <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-5">
               <span className="rounded-full border border-white/10 bg-black/30 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-white/70 backdrop-blur-sm">
@@ -152,6 +230,7 @@ export default function CSHero({ study }: { study: CaseStudy }) {
               </span>
             </div>
           </motion.div>
+
         </div>
       </Container>
     </section>

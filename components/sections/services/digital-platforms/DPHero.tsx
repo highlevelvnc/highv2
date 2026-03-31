@@ -6,6 +6,7 @@ import { ArrowRight, ChevronRight } from 'lucide-react'
 import { heroLabel, heroSubheadline, heroCTA } from '@/lib/motion'
 import Container from '@/components/shared/Container'
 import { Button } from '@/components/ui/button'
+import InternalHeroBackground from '@/components/layout/InternalHeroBackground'
 
 export default function DPHero() {
   return (
@@ -17,31 +18,14 @@ export default function DPHero() {
       }}
       aria-label="Digital Platforms hero"
     >
-      {/* Ambient gradient — sky blue / indigo top-right */}
-      <div
-        className="pointer-events-none absolute right-0 top-0"
-        aria-hidden="true"
-        style={{
-          width: '700px',
-          height: '600px',
-          background:
-            'radial-gradient(ellipse at right top, rgba(14,165,233,0.1) 0%, rgba(108,58,255,0.06) 50%, transparent 70%)',
-          filter: 'blur(60px)',
-        }}
-      />
-      <div
-        className="pointer-events-none absolute bottom-0 left-0"
-        aria-hidden="true"
-        style={{
-          width: '400px',
-          height: '400px',
-          background:
-            'radial-gradient(ellipse at left bottom, rgba(108,58,255,0.06) 0%, transparent 65%)',
-          filter: 'blur(60px)',
-        }}
+      <InternalHeroBackground
+        glowAt="78% -5%"
+        glowColor="rgba(108,58,255,0.20)"
+        secondaryAt="10% 50%"
+        secondaryColor="rgba(14,165,233,0.07)"
       />
 
-      <Container>
+      <Container className="relative z-10">
         <div className="max-w-3xl">
           {/* Breadcrumb */}
           <motion.div
@@ -103,7 +87,7 @@ export default function DPHero() {
           {/* CTA */}
           <motion.div variants={heroCTA} initial="hidden" animate="visible">
             <Button variant="primary" size="lg" asChild>
-              <Link href="/contact" className="group">
+              <Link href="/contact" className="group" data-magnetic>
                 Book a Discovery Call
                 <ArrowRight
                   size={16}
