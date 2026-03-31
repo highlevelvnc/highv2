@@ -16,6 +16,7 @@
 
 import { useRef, useEffect } from 'react'
 import dynamic from 'next/dynamic'
+import { motion } from 'framer-motion'
 import { prefersReducedMotion } from '@/lib/utils'
 
 /* ── Lazy-load the heavy Three.js canvas — no SSR ── */
@@ -95,12 +96,77 @@ export default function HeroBackground() {
         }}
       />
 
-      {/* ── 7. R3F particle field (desktop only, not on reduced-motion) ── */}
+      {/* ── 7. Floating gradient orbs — slow drift, atmospheric ── */}
+      <motion.div
+        className="pointer-events-none absolute hidden md:block"
+        style={{
+          width: '400px',
+          height: '400px',
+          top: '5%',
+          left: '15%',
+          background: 'radial-gradient(circle, rgba(108,58,255,0.25) 0%, transparent 65%)',
+          filter: 'blur(100px)',
+        }}
+        animate={{
+          x: [0, 60, -40, 0],
+          y: [0, -50, 30, 0],
+          scale: [1, 1.15, 0.9, 1],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      />
+      <motion.div
+        className="pointer-events-none absolute hidden md:block"
+        style={{
+          width: '350px',
+          height: '350px',
+          top: '25%',
+          right: '10%',
+          background: 'radial-gradient(circle, rgba(59,130,246,0.2) 0%, transparent 65%)',
+          filter: 'blur(90px)',
+        }}
+        animate={{
+          x: [0, -50, 30, 0],
+          y: [0, 40, -60, 0],
+          scale: [1, 0.85, 1.1, 1],
+        }}
+        transition={{
+          duration: 16,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      />
+      <motion.div
+        className="pointer-events-none absolute hidden md:block"
+        style={{
+          width: '250px',
+          height: '250px',
+          bottom: '20%',
+          left: '50%',
+          background: 'radial-gradient(circle, rgba(139,92,246,0.18) 0%, transparent 65%)',
+          filter: 'blur(80px)',
+        }}
+        animate={{
+          x: [-30, 50, -20, -30],
+          y: [20, -30, 50, 20],
+          scale: [0.9, 1.1, 1, 0.9],
+        }}
+        transition={{
+          duration: 24,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      />
+
+      {/* ── 8. R3F particle field (desktop only, not on reduced-motion) ── */}
       <div className="absolute inset-0 hidden md:block">
         <HeroParticles mouseRef={mouseRef} />
       </div>
 
-      {/* ── 8. Bottom fade — blends into next section ── */}
+      {/* ── 9. Bottom fade — blends into next section ── */}
       <div
         className="absolute bottom-0 left-0 right-0 h-40"
         style={{

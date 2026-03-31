@@ -5,17 +5,17 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 
 /**
- * PageTransition — cinematic blur + depth route transition.
+ * PageTransition — cinematic scale + blur + fade route transition.
  *
- * Enter: page rises from below with a camera-focus blur dissolve.
- * Exit:  page floats slightly upward while blurring out.
+ * Enter:  Page fades in from below with a camera-focus blur dissolve
+ *         and slight scale-up from 0.97 → 1.
  *
- * The blur-dissolve creates a "depth-of-field shift" feeling —
- * as if the camera is re-focusing on a new layer of the scene.
+ * Exit:   Page scales down slightly (0.98) while fading out with blur,
+ *         creating a "camera pulling back" effect before the new page enters.
  *
- * AnimatePresence initial={false} prevents the enter animation
- * on the very first page load (hero handles its own entrance).
- * Subsequent navigations get the full transition.
+ * The combined scale + blur creates a depth-of-field shift feeling.
+ *
+ * AnimatePresence initial={false} prevents enter animation on first load.
  */
 export default function PageTransition({ children }: { children: ReactNode }) {
   const pathname = usePathname()
@@ -24,15 +24,29 @@ export default function PageTransition({ children }: { children: ReactNode }) {
     <AnimatePresence mode="wait" initial={false}>
       <motion.div
         key={pathname}
-        initial={{ opacity: 0, y: 14, filter: 'blur(5px)' }}
-        animate={{ opacity: 1, y: 0,  filter: 'blur(0px)' }}
+        initial={{
+          opacity: 0,
+          y: 20,
+          scale: 0.97,
+          filter: 'blur(8px)',
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          filter: 'blur(0px)',
+        }}
         exit={{
           opacity: 0,
-          y: -6,
-          filter: 'blur(2px)',
-          transition: { duration: 0.2, ease: [0.65, 0, 0.35, 1] },
+          y: -10,
+          scale: 0.98,
+          filter: 'blur(4px)',
+          transition: { duration: 0.25, ease: [0.65, 0, 0.35, 1] },
         }}
-        transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
+        transition={{
+          duration: 0.5,
+          ease: [0.16, 1, 0.3, 1],
+        }}
       >
         {children}
       </motion.div>

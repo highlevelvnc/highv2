@@ -1,10 +1,12 @@
 'use client'
 
+import { useRef } from 'react'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import HeroBackground from './HeroBackground'
+import { TextDecode } from '@/components/animations'
 import {
   heroLabel,
   heroHeadline,
@@ -21,41 +23,65 @@ const headlineLines = [
 
 /* ─── Component ──────────────────────────────────────────────── */
 export default function HeroSection() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  })
+
+  /* Parallax layers — each element scrolls at a different speed */
+  const headlineY = useTransform(scrollYProgress, [0, 1], [0, 120])
+  const subY = useTransform(scrollYProgress, [0, 1], [0, 80])
+  const ctaY = useTransform(scrollYProgress, [0, 1], [0, 40])
+  const labelY = useTransform(scrollYProgress, [0, 1], [0, 150])
+  const bgY = useTransform(scrollYProgress, [0, 1], [0, 200])
+  const fadeOut = useTransform(scrollYProgress, [0, 0.6], [1, 0])
+
   return (
     <section
+      ref={sectionRef}
       className="relative min-h-[100svh] flex flex-col items-center justify-center overflow-hidden"
       aria-label="Hero"
     >
-      {/* Background */}
-      <HeroBackground />
+      {/* Background — parallax deep layer */}
+      <motion.div className="absolute inset-0" style={{ y: bgY }}>
+        <HeroBackground />
+      </motion.div>
 
       {/* Content */}
-      <div className="relative z-10 w-full px-5 sm:px-8 flex flex-col items-center text-center max-w-[920px] mx-auto pt-20">
-        {/* Category label */}
+      <motion.div
+        className="relative z-10 w-full px-5 sm:px-8 flex flex-col items-center text-center max-w-[920px] mx-auto pt-20"
+        style={{ opacity: fadeOut }}
+      >
+        {/* Category label — text decode effect */}
         <motion.div
           variants={heroLabel}
           initial="hidden"
           animate="visible"
           className="inline-flex items-center gap-3 mb-7"
+          style={{ y: labelY }}
         >
           <span
             className="block h-px w-8 bg-accent-primary opacity-80 flex-shrink-0"
             aria-hidden="true"
           />
-          <span className="font-mono text-[13px] font-medium uppercase tracking-[0.12em] text-accent-primary">
-            Digital Growth Infrastructure
-          </span>
+          <TextDecode
+            text="Digital Growth Infrastructure"
+            delay={300}
+            className="font-mono text-[13px] font-medium uppercase tracking-[0.12em] text-accent-primary"
+          />
           <span
             className="block h-px w-8 bg-accent-primary opacity-80 flex-shrink-0"
             aria-hidden="true"
           />
         </motion.div>
 
-        {/* Headline — animated word by word */}
+        {/* Headline — animated word by word with parallax */}
         <motion.h1
           className="font-display font-bold tracking-[-0.03em] text-text-primary mb-7 leading-[1.08]"
           style={{
             fontSize: 'clamp(44px, 8.5vw, 112px)',
+            y: headlineY,
           }}
           variants={heroHeadline}
           initial="hidden"
@@ -97,10 +123,10 @@ export default function HeroSection() {
           ))}
         </motion.h1>
 
-        {/* Subheadline */}
+        {/* Subheadline — parallax layer */}
         <motion.p
           className="font-body text-text-secondary leading-[1.75] max-w-[480px] mx-auto mb-10"
-          style={{ fontSize: 'clamp(16px, 1.4vw, 19px)' }}
+          style={{ fontSize: 'clamp(16px, 1.4vw, 19px)', y: subY }}
           variants={heroSubheadline}
           initial="hidden"
           animate="visible"
@@ -110,12 +136,13 @@ export default function HeroSection() {
           market leaders.
         </motion.p>
 
-        {/* CTAs */}
+        {/* CTAs — parallax layer */}
         <motion.div
           className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
           variants={heroCTA}
           initial="hidden"
           animate="visible"
+          style={{ y: ctaY }}
         >
           <Button variant="primary" size="lg" asChild>
             <Link href="/contact" className="group" data-magnetic>
@@ -140,7 +167,7 @@ export default function HeroSection() {
         >
           Portugal · Europe · Remote
         </motion.p>
-      </div>
+      </motion.div>
 
       {/* Scroll indicator */}
       <motion.div

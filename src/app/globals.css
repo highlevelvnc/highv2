@@ -200,6 +200,14 @@
   }
 }
 
+/* ─── Grain Overlay ──────────────────────────────────────────── */
+@keyframes grainShift {
+  0%   { background-position: 0 0; }
+  33%  { background-position: -40px -20px; }
+  66%  { background-position: 20px -40px; }
+  100% { background-position: 0 0; }
+}
+
 /* ─── Reduced Motion ─────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *,

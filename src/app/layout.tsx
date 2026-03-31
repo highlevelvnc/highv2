@@ -5,6 +5,9 @@ import SiteHeader from '@/components/layout/SiteHeader'
 import SiteFooter from '@/components/layout/SiteFooter'
 import PageTransition from '@/components/layout/PageTransition'
 import CustomCursor from '@/components/ui/CustomCursor'
+import SmoothScrollProvider from '@/components/providers/SmoothScrollProvider'
+import NoiseOverlay from '@/components/ui/NoiseOverlay'
+import ScrollProgress from '@/components/ui/ScrollProgress'
 import { SITE_URL } from '@/lib/config/site'
 
 /* ─── Fonts ──────────────────────────────────────────────────── */
@@ -97,17 +100,25 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="bg-bg-primary text-text-primary font-body antialiased">
-        {/* Custom cursor ring — renders only on fine-pointer devices */}
-        <CustomCursor />
+        <SmoothScrollProvider>
+          {/* Film grain overlay — adds analog texture */}
+          <NoiseOverlay />
 
-        <SiteHeader />
+          {/* Scroll progress bar — top of viewport */}
+          <ScrollProgress />
 
-        {/* Page transition wrapper — fade + slight upward motion on route change */}
-        <main className="relative">
-          <PageTransition>{children}</PageTransition>
-        </main>
+          {/* Custom cursor ring — renders only on fine-pointer devices */}
+          <CustomCursor />
 
-        <SiteFooter />
+          <SiteHeader />
+
+          {/* Page transition wrapper — fade + slight upward motion on route change */}
+          <main className="relative">
+            <PageTransition>{children}</PageTransition>
+          </main>
+
+          <SiteFooter />
+        </SmoothScrollProvider>
       </body>
     </html>
   )

@@ -1,3 +1,6 @@
 export { default as ScrollReveal } from './ScrollReveal'
 export { default as TextReveal } from './TextReveal'
 export { default as CountUp } from './CountUp'
+export { default as TextDecode } from './TextDecode'
+export { default as TiltCard } from './TiltCard'
+export { default as InfiniteMarquee } from './InfiniteMarquee'

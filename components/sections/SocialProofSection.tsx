@@ -3,8 +3,8 @@
 import { useRef, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import { Quote } from 'lucide-react'
-import { fadeInUp, fadeIn, staggerContainer } from '@/lib/motion'
-import { ScrollReveal, CountUp } from '@/components/animations'
+import { fadeInUp, staggerContainer } from '@/lib/motion'
+import { ScrollReveal, CountUp, InfiniteMarquee } from '@/components/animations'
 import Section from '@/components/shared/Section'
 import Container from '@/components/shared/Container'
 import SectionLabel from '@/components/shared/SectionLabel'
@@ -202,17 +202,10 @@ function ClientMarkStrip() {
         Trusted by growth-stage teams across Europe
       </p>
 
-      <motion.div
-        variants={staggerContainer(0.07)}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.4 }}
-        className="flex flex-wrap items-center justify-center gap-x-8 gap-y-6 sm:gap-x-12"
-      >
+      <InfiniteMarquee baseVelocity={-30} velocityFactor={4}>
         {clientMarks.map((client) => (
-          <motion.div
+          <div
             key={client.id}
-            variants={fadeIn}
             title={`${client.name} — ${client.segment}`}
             className="group flex items-center gap-2.5 opacity-30 transition-opacity duration-300 hover:opacity-60"
           >
@@ -221,12 +214,12 @@ function ClientMarkStrip() {
                 {client.monogram}
               </span>
             </div>
-            <span className="font-display text-[14px] font-medium tracking-[-0.01em] text-text-secondary">
+            <span className="font-display text-[14px] font-medium tracking-[-0.01em] text-text-secondary whitespace-nowrap">
               {client.name}
             </span>
-          </motion.div>
+          </div>
         ))}
-      </motion.div>
+      </InfiniteMarquee>
     </div>
   )
 }

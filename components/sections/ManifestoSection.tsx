@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import Container from '@/components/shared/Container'
 import SectionLabel from '@/components/shared/SectionLabel'
 import { lineGrow } from '@/lib/motion'
@@ -33,6 +33,15 @@ export default function ManifestoSection() {
     once: true,
     amount: 0.2,
   })
+
+  /* Parallax layers for text depth */
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'end start'],
+  })
+  const headlineY = useTransform(scrollYProgress, [0, 1], [60, -30])
+  const bodyY = useTransform(scrollYProgress, [0, 1], [40, -15])
+  const pillarsY = useTransform(scrollYProgress, [0, 1], [30, -10])
 
   return (
     <section
@@ -74,10 +83,10 @@ export default function ManifestoSection() {
           {/* ── Label ── */}
           <SectionLabel withLine={false}>Our Position</SectionLabel>
 
-          {/* ── Main statement ── */}
-          <h2
+          {/* ── Main statement — parallax layer ── */}
+          <motion.h2
             className="font-display font-semibold tracking-[-0.025em] text-text-primary mt-4 mb-8 leading-[1.1]"
-            style={{ fontSize: 'clamp(32px, 5vw, 60px)' }}
+            style={{ fontSize: 'clamp(32px, 5vw, 60px)', y: headlineY }}
           >
             <motion.span
               className="block overflow-hidden"
@@ -149,12 +158,12 @@ export default function ManifestoSection() {
                 ),
               )}
             </span>
-          </h2>
+          </motion.h2>
 
-          {/* ── Supporting body ── */}
+          {/* ── Supporting body — parallax layer ── */}
           <motion.p
             className="font-body text-text-secondary leading-[1.8] max-w-[680px] mb-16"
-            style={{ fontSize: 'clamp(17px, 1.8vw, 20px)' }}
+            style={{ fontSize: 'clamp(17px, 1.8vw, 20px)', y: bodyY }}
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.9 }}
@@ -164,8 +173,8 @@ export default function ManifestoSection() {
             to create digital infrastructure that compounds growth over time.
           </motion.p>
 
-          {/* ── Four pillars ── */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-16 gap-y-8">
+          {/* ── Four pillars — parallax layer ── */}
+          <motion.div className="grid grid-cols-1 sm:grid-cols-2 gap-x-16 gap-y-8" style={{ y: pillarsY }}>
             {pillars.map((pillar, i) => (
               <motion.div
                 key={pillar.label}
@@ -194,7 +203,7 @@ export default function ManifestoSection() {
                 </p>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           {/* ── Decorative bottom line ── */}
           <motion.div
