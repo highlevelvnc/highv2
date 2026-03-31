@@ -5,12 +5,12 @@
   "/Blog": "pages/Blog.html",
   "/BlogPost": "pages/BlogPost.html",
   "/Home": "pages/Home.html",
-  "/NicheLanding": "pages/NicheLanding.html",
   "/Contact": "pages/Contact.html",
+  "/NicheLanding": "pages/NicheLanding.html",
   "/Plans": "pages/Plans.html",
   "/Services": "pages/Services.html",
-  "/Testimonials": "pages/Testimonials.html",
   "/Results": "pages/Results.html",
+  "/Testimonials": "pages/Testimonials.html",
   "/_document": "pages/_document.js",
   "/404": "pages/404.html"
 }

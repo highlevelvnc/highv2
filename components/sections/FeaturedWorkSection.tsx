@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
+import Link from 'next/link'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -184,13 +185,13 @@ function CaseStudyCard({
 
         {/* CTA */}
         <div>
-          <button
-            type="button"
+          <Link
+            href={`/work/${study.slug}`}
             className="group/link inline-flex items-center gap-2 font-body text-[14px] font-medium text-text-secondary transition-colors duration-200 hover:text-text-primary"
           >
             Read case study
             <ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
-          </button>
+          </Link>
         </div>
       </div>
     </motion.article>

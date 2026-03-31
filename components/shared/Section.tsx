@@ -1,4 +1,4 @@
-import { forwardRef } from 'react'
+import React, { forwardRef } from 'react'
 import { cn } from '@/lib/utils'
 
 type BgVariant = 'primary' | 'secondary' | 'elevated'
@@ -22,17 +22,17 @@ const bgMap: Record<BgVariant, string> = {
  * Accepts a ref for scroll-tracking hooks (e.g. Framer Motion useScroll).
  */
 const Section = forwardRef<HTMLElement, SectionProps>(function Section(
-  { children, className, bg = 'primary', id, as: Tag = 'section' },
+  { children, className, bg = 'primary', id, as = 'section' },
   ref,
 ) {
-  return (
-    <Tag
-      ref={ref}
-      id={id}
-      className={cn('relative section-py overflow-hidden', bgMap[bg], className)}
-    >
-      {children}
-    </Tag>
+  return React.createElement(
+    as,
+    {
+      ref,
+      id,
+      className: cn('relative section-py overflow-hidden', bgMap[bg], className),
+    },
+    children,
   )
 })
 

@@ -94,6 +94,22 @@ export default function SiteHeader() {
           isHidden && !mobileOpen ? '-translate-y-full' : 'translate-y-0',
         )}
       >
+        {/* Bottom glow rim — visible when scrolled */}
+        {isScrolled && (
+          <motion.div
+            className="absolute inset-x-0 bottom-0 h-px"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            style={{
+              background:
+                'linear-gradient(90deg, transparent 0%, rgba(108,58,255,0.5) 30%, rgba(59,130,246,0.5) 70%, transparent 100%)',
+            }}
+            aria-hidden="true"
+          />
+        )}
+
         <div className="mx-auto max-w-container px-5 sm:px-8 lg:px-12 h-[72px] flex items-center justify-between">
           {/* Logo */}
           <Link
@@ -101,9 +117,20 @@ export default function SiteHeader() {
             className="flex items-center group focus-visible:outline-none"
             aria-label="High Level — Home"
           >
-            <span className="font-display font-bold text-xl text-text-primary tracking-[-0.02em] transition-opacity duration-200 group-hover:opacity-80">
-              High{' '}
-              <span className="text-gradient">Level</span>
+            <span className="font-display font-bold text-xl tracking-[-0.02em] transition-opacity duration-200 group-hover:opacity-90">
+              <span className="text-text-primary">High</span>{' '}
+              <span
+                style={{
+                  backgroundImage: 'linear-gradient(135deg, #6C3AFF 0%, #3B82F6 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  transition: 'filter 0.3s ease',
+                }}
+                className="group-hover:[filter:brightness(1.25)_saturate(1.2)]"
+              >
+                Level
+              </span>
             </span>
           </Link>
 

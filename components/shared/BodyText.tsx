@@ -1,3 +1,4 @@
+import React from 'react'
 import { cn } from '@/lib/utils'
 
 interface BodyTextProps {
@@ -5,7 +6,7 @@ interface BodyTextProps {
   className?: string
   size?: 'sm' | 'md' | 'lg'
   muted?: boolean
-  as?: React.ElementType
+  as?: React.ElementType<{ className?: string; children?: React.ReactNode }>
 }
 
 const sizeMap = {

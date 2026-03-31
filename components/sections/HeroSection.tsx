@@ -118,7 +118,7 @@ export default function HeroSection() {
           animate="visible"
         >
           <Button variant="primary" size="lg" asChild>
-            <Link href="/contact" className="group">
+            <Link href="/contact" className="group" data-magnetic>
               Start Your Growth Engine
               <ArrowRight
                 size={16}
@@ -128,7 +128,7 @@ export default function HeroSection() {
           </Button>
 
           <Button variant="secondary" size="lg" asChild>
-            <Link href="/work">See Our Work</Link>
+            <Link href="/work" data-magnetic>See Our Work</Link>
           </Button>
         </motion.div>
 

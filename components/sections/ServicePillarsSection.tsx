@@ -1,5 +1,6 @@
 'use client'
 
+import { useRef, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -23,6 +24,7 @@ interface Pillar {
   outcomes: string[]
   accentClass: string
   glowColor: string
+  spotlightColor: string
 }
 
 const pillars: Pillar[] = [
@@ -39,6 +41,7 @@ const pillars: Pillar[] = [
     ],
     accentClass: 'from-[#6C3AFF] to-[#3B82F6]',
     glowColor: 'rgba(108,58,255,0.18)',
+    spotlightColor: 'rgba(108,58,255,0.22)',
   },
   {
     id: 'content',
@@ -53,6 +56,7 @@ const pillars: Pillar[] = [
     ],
     accentClass: 'from-[#8B5CF6] to-[#EC4899]',
     glowColor: 'rgba(139,92,246,0.18)',
+    spotlightColor: 'rgba(139,92,246,0.22)',
   },
   {
     id: 'brand',
@@ -67,6 +71,7 @@ const pillars: Pillar[] = [
     ],
     accentClass: 'from-[#3B82F6] to-[#10B981]',
     glowColor: 'rgba(59,130,246,0.18)',
+    spotlightColor: 'rgba(59,130,246,0.22)',
   },
   {
     id: 'growth',
@@ -81,26 +86,64 @@ const pillars: Pillar[] = [
     ],
     accentClass: 'from-[#10B981] to-[#6C3AFF]',
     glowColor: 'rgba(16,185,129,0.18)',
+    spotlightColor: 'rgba(16,185,129,0.22)',
   },
 ]
 
 /* ─────────────────────────────────────────────────────────
-   Card — consistent lift + glow hover (no 3D tilt)
+   Card — lift + ambient glow + mouse-tracking spotlight
 ───────────────────────────────────────────────────────── */
 
 function PillarCard({ pillar }: { pillar: Pillar }) {
+  const cardRef = useRef<HTMLDivElement>(null)
+
+  /* Update CSS custom properties directly — no React re-renders */
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const el = cardRef.current
+    if (!el) return
+    const rect = el.getBoundingClientRect()
+    const x = ((e.clientX - rect.left) / rect.width)  * 100
+    const y = ((e.clientY - rect.top)  / rect.height) * 100
+    el.style.setProperty('--sx', `${x}%`)
+    el.style.setProperty('--sy', `${y}%`)
+  }, [])
+
+  const handleMouseLeave = useCallback(() => {
+    cardRef.current?.style.removeProperty('--sx')
+    cardRef.current?.style.removeProperty('--sy')
+  }, [])
+
   return (
     <motion.div
+      ref={cardRef}
       variants={fadeInUp}
-      whileHover={{ y: -4, transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] } }}
+      whileHover={{ y: -5, transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] } }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       className="group relative flex flex-col rounded-2xl border border-border-subtle bg-bg-elevated p-8 transition-colors duration-300 hover:border-border-hover"
     >
-      {/* Ambient glow on hover */}
+      {/* Mouse-tracking spotlight */}
+      <div
+        className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        style={{
+          background: `radial-gradient(circle 180px at var(--sx, 50%) var(--sy, 50%), ${pillar.spotlightColor} 0%, transparent 70%)`,
+        }}
+      />
+
+      {/* Static ambient glow (corner-anchored) */}
       <div
         className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         style={{
-          background: `radial-gradient(ellipse at top left, ${pillar.glowColor} 0%, transparent 60%)`,
+          background: `radial-gradient(ellipse at top left, ${pillar.glowColor} 0%, transparent 55%)`,
         }}
+      />
+
+      {/* Gradient top accent line */}
+      <div
+        className={cn(
+          'pointer-events-none absolute inset-x-0 top-0 h-px rounded-t-2xl bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100',
+          pillar.accentClass,
+        )}
       />
 
       {/* Number + arrow */}
@@ -132,7 +175,7 @@ function PillarCard({ pillar }: { pillar: Pillar }) {
       {/* Accent divider — expands on hover */}
       <div
         className={cn(
-          'mb-5 h-px w-10 rounded-full bg-gradient-to-r opacity-50 transition-all duration-300 group-hover:w-16 group-hover:opacity-100',
+          'mb-5 h-px w-10 rounded-full bg-gradient-to-r opacity-50 transition-all duration-300 group-hover:w-20 group-hover:opacity-100',
           pillar.accentClass,
         )}
       />
